@@ -44,8 +44,8 @@ const addFavText = computed(() =>
 )
 const mainImage = computed(() =>
   srcMainImage.value === srcImages[0].img
-    ? getImageUrl('/src/assets/image/14896420-2-1.jpg')
-    : getImageUrl(srcMainImage.value)
+    ? '/src/assets/image/14896420-2-1.jpg'
+    : srcMainImage.value
 )
 
 const onResize = () => (isShownMobMenu.value = window.innerWidth < 920)
@@ -100,7 +100,7 @@ const addedTo = (to) => {
     }, 4000)
   }
 }
-const getImageUrl = (name) => new URL(`${ name }`, import.meta.url).href
+// const getImageUrl = (name) => new URL(`/src${ name }`, import.meta.url).href
 const clickImage = (src) => srcMainImage.value = src
 const clearInput = () => inputSubscribe.value = ''
 const checkInputMail = (email) => {
@@ -220,7 +220,7 @@ onMounted(() => {
               <a v-for="link in srcImages" :key="link" href="#">
                 <img
                   @click="clickImage(link.img)"
-                  :src="getImageUrl(link.img)"
+                  :src="link.img"
                   alt="product"
                 />
               </a>
