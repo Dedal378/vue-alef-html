@@ -100,7 +100,7 @@ const addedTo = (to) => {
     }, 4000)
   }
 }
-// const getImageUrl = (name) => new URL(`/src${ name }`, import.meta.url).href
+const getImageUrl = (name) => new URL(`${ name }`, import.meta.url).href
 const clickImage = (src) => srcMainImage.value = src
 const clearInput = () => inputSubscribe.value = ''
 const checkInputMail = (email) => {
