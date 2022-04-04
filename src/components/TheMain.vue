@@ -12,7 +12,7 @@ const isFavorite = ref(false)
 const isShownToast = ref(false)
 let textInToast = ref('')
 let textsToToast = reactive({})
-const srcMainImage = ref('./src/assets/image/14896420-2-1.jpg')
+const srcMainImage = ref('/assets/image/14896420-2-1.jpg')
 const srcImages = reactive([
   { img: '/assets/image/14896420-2-2.jpg' },
   { img: '/assets/image/14896420-1-1.jpg' },
@@ -44,8 +44,8 @@ const addFavText = computed(() =>
 )
 const mainImage = computed(() =>
   srcMainImage.value === srcImages[0].img
-    ? './src/assets/image/14896420-2-1.jpg'
-    : srcMainImage.value
+    ? getImageUrl('/assets/image/14896420-2-1.jpg')
+    : getImageUrl(srcMainImage.value)
 )
 
 const onResize = () => (isShownMobMenu.value = window.innerWidth < 920)
