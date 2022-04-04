@@ -12,13 +12,13 @@ const isFavorite = ref(false)
 const isShownToast = ref(false)
 let textInToast = ref('')
 let textsToToast = reactive({})
-const srcMainImage = ref('/src/assets/image/14896420-2-1.jpg')
+const srcMainImage = ref('./src/assets/image/14896420-2-1.jpg')
 const srcImages = reactive([
-  { img: '/src/assets/image/14896420-2-2.jpg' },
-  { img: '/src/assets/image/14896420-1-1.jpg' },
-  { img: '/src/assets/image/14896420-3-1.jpg' },
-  { img: '/src/assets/image/14896420-4-1.jpg' },
-  { img: '/src/assets/image/14896420-5-1.jpg' },
+  { img: './src/assets/image/14896420-2-2.jpg' },
+  { img: './src/assets/image/14896420-1-1.jpg' },
+  { img: './src/assets/image/14896420-3-1.jpg' },
+  { img: './src/assets/image/14896420-4-1.jpg' },
+  { img: './src/assets/image/14896420-5-1.jpg' },
 ])
 const inputSubscribe = ref('')
 
@@ -44,7 +44,7 @@ const addFavText = computed(() =>
 )
 const mainImage = computed(() =>
   srcMainImage.value === srcImages[0].img
-    ? '/src/assets/image/14896420-2-1.jpg'
+    ? './src/assets/image/14896420-2-1.jpg'
     : srcMainImage.value
 )
 
@@ -519,7 +519,7 @@ onMounted(() => {
           </div>
 
           <div class="block-left">
-            <img alt="pic" src="/src/assets/image/158-0.jpg" />
+            <img alt="pic" src="../assets/image/158-0.jpg" />
           </div>
 
           <div class="block-right">
@@ -593,7 +593,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="/src/assets/image/158-1.jpg" />
+              <img alt="pic" src="../assets/image/158-1.jpg" />
             </a>
 
             <a href="#">
@@ -666,7 +666,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="/src/assets/image/158-2.jpg" />
+              <img alt="pic" src="../assets/image/158-2.jpg" />
             </a>
 
             <a href="#">
@@ -739,7 +739,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="/src/assets/image/158-3.jpg" />
+              <img alt="pic" src="../assets/image/158-3.jpg" />
             </a>
 
             <a href="#">
@@ -812,7 +812,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="/src/assets/image/158-4.jpg" />
+              <img alt="pic" src="../assets/image/158-4.jpg" />
             </a>
           </div>
         </div>
@@ -1190,7 +1190,7 @@ onMounted(() => {
               margin-bottom: 12px;
               padding: 10px;
               background-color: #fff;
-              background-image: url("/src/assets/image/icon/arrow_down_swipe.svg");
+              background-image: url("../assets/image/icon/arrow_down_swipe.svg");
               background-repeat: no-repeat;
               background-position: right 14px top 50%;
               border: 1px solid #333;
