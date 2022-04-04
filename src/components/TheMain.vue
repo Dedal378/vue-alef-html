@@ -14,11 +14,11 @@ let textInToast = ref('')
 let textsToToast = reactive({})
 const srcMainImage = ref('./src/assets/image/14896420-2-1.jpg')
 const srcImages = reactive([
-  { img: '/src/assets/image/14896420-2-2.jpg' },
-  { img: '/src/assets/image/14896420-1-1.jpg' },
-  { img: '/src/assets/image/14896420-3-1.jpg' },
-  { img: '/src/assets/image/14896420-4-1.jpg' },
-  { img: '/src/assets/image/14896420-5-1.jpg' },
+  { img: '/assets/image/14896420-2-2.jpg' },
+  { img: '/assets/image/14896420-1-1.jpg' },
+  { img: '/assets/image/14896420-3-1.jpg' },
+  { img: '/assets/image/14896420-4-1.jpg' },
+  { img: '/assets/image/14896420-5-1.jpg' },
 ])
 const inputSubscribe = ref('')
 
@@ -100,7 +100,7 @@ const addedTo = (to) => {
     }, 4000)
   }
 }
-const getImageUrl = (name) => new URL(`${ name }`, import.meta.url).href
+const getImageUrl = (name) => new URL(`/src${ name }`, import.meta.url).href
 const clickImage = (src) => srcMainImage.value = src
 const clearInput = () => inputSubscribe.value = ''
 const checkInputMail = (email) => {
@@ -220,7 +220,7 @@ onMounted(() => {
               <a v-for="link in srcImages" :key="link" href="#">
                 <img
                   @click="clickImage(link.img)"
-                  :src="link.img"
+                  :src="getImageUrl(link.img)"
                   alt="product"
                 />
               </a>
