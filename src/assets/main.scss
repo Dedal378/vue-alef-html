@@ -50,8 +50,17 @@ a {
   &:hover {
     color: lighten(#333, 30%);
   }
+  &:active {
+    color: lighten(#18303b, 30%);
+  }
+  &:focus {
+    color: lighten(#18303b, 30%);
+  }
+  &:disabled {
+    color: lighten(#333, 50%);
+  }
   &:visited {
-    color: lighten(#1a2f33, 30%);
+    //color: lighten(#b08012, 30%);
   }
 }
 img {

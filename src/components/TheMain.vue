@@ -2,7 +2,6 @@
 import { computed, onMounted, reactive, ref } from 'vue'
 
 let scrollTop = window.pageYOffset
-let mouseX = window.clientX
 const hiddenHeader = ref(false)
 const isShownMobMenu = ref(false)
 const classOpened = ref(false)
@@ -13,14 +12,15 @@ const isFavorite = ref(false)
 const isShownToast = ref(false)
 let textInToast = ref('')
 let textsToToast = reactive({})
-const srcMainImage = ref('../assets/image/14896420-2-1.jpg')
+const srcMainImage = ref('/src/assets/image/14896420-2-1.jpg')
 const srcImages = reactive([
-  { img: '../assets/image/14896420-2-2.jpg' },
-  { img: '../assets/image/14896420-1-1.jpg' },
-  { img: '../assets/image/14896420-3-1.jpg' },
-  { img: '../assets/image/14896420-4-1.jpg' },
-  { img: '../assets/image/14896420-5-1.jpg' },
+  { img: '/src/assets/image/14896420-2-2.jpg' },
+  { img: '/src/assets/image/14896420-1-1.jpg' },
+  { img: '/src/assets/image/14896420-3-1.jpg' },
+  { img: '/src/assets/image/14896420-4-1.jpg' },
+  { img: '/src/assets/image/14896420-5-1.jpg' },
 ])
+const inputSubscribe = ref('')
 
 const btnFavColor = computed(() =>
   isFavorite.value
@@ -44,7 +44,7 @@ const addFavText = computed(() =>
 )
 const mainImage = computed(() =>
   srcMainImage.value === srcImages[0].img
-    ? getImageUrl('../assets/image/14896420-2-1.jpg')
+    ? getImageUrl('/src/assets/image/14896420-2-1.jpg')
     : getImageUrl(srcMainImage.value)
 )
 
@@ -67,7 +67,7 @@ const changeQuantity = (click) => {
     quantity.value--
   }
 }
-const getRefEl = ({ el }) => (productName.value = el.innerText)
+const getRefEl = ({ el }) => productName.value = el.innerText
 const addedTo = (to) => {
   textsToToast = {
     basket: `Товар "<strong>${ productName.value }</strong>" в количестве <strong>${ quantity.value }</strong> единиц ${ addBasketText.value }`,
@@ -101,17 +101,28 @@ const addedTo = (to) => {
   }
 }
 const getImageUrl = (name) => new URL(`${ name }`, import.meta.url).href
-const clickImage = (src) => (srcMainImage.value = src)
+const clickImage = (src) => srcMainImage.value = src
+const clearInput = () => inputSubscribe.value = ''
+const checkInputMail = (email) => {
+  if (email) {
+    const reg = /^([\w\d-]+\.)*[\w\d-]+@[\w\d-]+(\.[\w\d-]+)*\.[\w]{2,6}$/
+    return !reg.test(email)
+  }
+  return false
+}
 
 onMounted(() => {
   onResize()
-  window.addEventListener('scroll', onScroll)
   window.addEventListener('resize', onResize)
+  window.addEventListener('scroll', onScroll)
 })
 </script>
 
 <template>
-  <header :class="{ top_hidden: hiddenHeader }" class="header">
+  <header
+    :class="{ top_hidden: hiddenHeader }"
+    class="header"
+  >
     <div class="wrapper">
       <div class="content">
         <div class="logo">
@@ -503,10 +514,12 @@ onMounted(() => {
         </div>
         <!--bottom-->
         <div class="block-bottom">
-          <div class="subtitle"><a href="#">Посмотреть все стили</a></div>
+          <div class="subtitle">
+            <a href="#">Посмотреть все стили</a>
+          </div>
 
           <div class="block-left">
-            <img alt="pic" src="../assets/image/158-0.jpg" />
+            <img alt="pic" src="/src/assets/image/158-0.jpg" />
           </div>
 
           <div class="block-right">
@@ -580,7 +593,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="../assets/image/158-1.jpg" />
+              <img alt="pic" src="/src/assets/image/158-1.jpg" />
             </a>
 
             <a href="#">
@@ -653,7 +666,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="../assets/image/158-2.jpg" />
+              <img alt="pic" src="/src/assets/image/158-2.jpg" />
             </a>
 
             <a href="#">
@@ -726,7 +739,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="../assets/image/158-3.jpg" />
+              <img alt="pic" src="/src/assets/image/158-3.jpg" />
             </a>
 
             <a href="#">
@@ -799,7 +812,7 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <img alt="pic" src="../assets/image/158-4.jpg" />
+              <img alt="pic" src="/src/assets/image/158-4.jpg" />
             </a>
           </div>
         </div>
@@ -833,8 +846,11 @@ onMounted(() => {
               class="input-mail"
               placeholder="Адрес электронной почты"
               type="email"
+              v-model.trim.lazy="inputSubscribe"
             />
             <svg
+              v-if="inputSubscribe"
+              @click="clearInput"
               class="icon-close"
               fill="none"
               height="16"
@@ -845,8 +861,16 @@ onMounted(() => {
               <path d="M3.70001 12.0664L12.0501 3.88337" stroke="#C4C4C4" />
               <path d="M12.2516 12.0664L3.90161 3.88335" stroke="#C4C4C4" />
             </svg>
+            <div
+              v-if="checkInputMail(inputSubscribe)"
+              class="toast email"
+            >
+              Email неподходящего вида: name@mail.com
+            </div>
           </div>
-          <button class="button button_white">Подписаться</button>
+          <button class="button button_white">
+            Подписаться
+          </button>
         </div>
       </div>
     </div>
@@ -880,6 +904,12 @@ onMounted(() => {
   opacity: 0.8;
   z-index: 40;
 
+  &.email {
+    top: 0;
+    left: 0;
+    margin-left: 0;
+  }
+
   @media (max-width: 395px) {
     left: 0;
     margin-top: 110px;
@@ -901,7 +931,7 @@ onMounted(() => {
   height: 40px;
   padding: 12px 0;
   background: #fff;
-  transition: all ease-in 0.5s;
+  transition: all ease-in 0.7s;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 20;
 
@@ -1160,7 +1190,7 @@ onMounted(() => {
               margin-bottom: 12px;
               padding: 10px;
               background-color: #fff;
-              background-image: url("../assets/image/icon/arrow_down_swipe.svg");
+              background-image: url("/src/assets/image/icon/arrow_down_swipe.svg");
               background-repeat: no-repeat;
               background-position: right 14px top 50%;
               border: 1px solid #333;
@@ -1229,8 +1259,6 @@ onMounted(() => {
 
   .block-bottom {
     display: grid;
-    grid-template-rows: repeat(auto-fill, 1fr);
-    grid-template-columns: repeat(auto-fill, 1fr);
     gap: 16px;
     place-items: center;
     @media (max-width: 920px) {
@@ -1238,19 +1266,16 @@ onMounted(() => {
     }
 
     .subtitle {
-      grid-row: 1/2;
       grid-column: 1/5;
       padding: 32px 0 16px;
       text-align: center;
       @media (max-width: 920px) {
-        grid-row: 1/2;
         grid-column: 1/3;
         padding: 58px 0 51px;
       }
     }
 
     .block-left {
-      grid-row: 2/3;
       grid-column: 1/3;
       @media (max-width: 920px) {
         grid-row: 2/3;
@@ -1260,20 +1285,18 @@ onMounted(() => {
 
     .block-right {
       display: grid;
-      grid-template-columns: subgrid;
-      grid-row: 2/3;
-
+      grid-template-columns: repeat(2, 1fr);
       grid-column: 3/5;
       gap: 16px;
       padding-top: 0;
       @media (max-width: 920px) {
-        grid-row: 3/4;
         grid-column: 1/3;
         gap: 8px;
       }
 
       a {
         position: relative;
+        flex: 0 1 auto;
 
         .hidden {
           display: none;
