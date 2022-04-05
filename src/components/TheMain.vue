@@ -12,13 +12,13 @@ const isFavorite = ref(false)
 const isShownToast = ref(false)
 let textInToast = ref('')
 let textsToToast = reactive({})
-const srcMainImage = ref('src/assets/image/14896420-2-1.jpg')
+const srcMainImage = ref('image/14896420-2-1.jpg')
 const srcImages = reactive([
-  { img: 'src/assets/image/14896420-2-2.jpg' },
-  { img: 'src/assets/image/14896420-1-1.jpg' },
-  { img: 'src/assets/image/14896420-3-1.jpg' },
-  { img: 'src/assets/image/14896420-4-1.jpg' },
-  { img: 'src/assets/image/14896420-5-1.jpg' },
+  { img: 'image/14896420-2-2.jpg' },
+  { img: 'image/14896420-1-1.jpg' },
+  { img: 'image/14896420-3-1.jpg' },
+  { img: 'image/14896420-4-1.jpg' },
+  { img: 'image/14896420-5-1.jpg' },
 ])
 const inputSubscribe = ref('')
 
@@ -44,7 +44,7 @@ const addFavText = computed(() =>
 )
 const mainImage = computed(() =>
   srcMainImage.value === srcImages[0].img
-    ? getImageUrl('src/assets/image/14896420-2-1.jpg')
+    ? getImageUrl('image/14896420-2-1.jpg')
     : getImageUrl(srcMainImage.value)
 )
 
@@ -100,7 +100,7 @@ const addedTo = (to) => {
     }, 4000)
   }
 }
-const getImageUrl = (name) => new URL(`/vue-alef-html/${ name }`, import.meta.url).href
+const getImageUrl = (name) => new URL(`/public/${ name }`, import.meta.url).href
 const clickImage = (src) => srcMainImage.value = src
 const clearInput = () => inputSubscribe.value = ''
 const checkInputMail = (email) => {
